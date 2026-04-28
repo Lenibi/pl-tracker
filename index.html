@@ -70,20 +70,36 @@ const PROXIES = [
 ];
 
 async function fetchYahoo(symbol) {
-  const yUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1m&range=1d&includePrePost=true`;
+  // Use 5m bars for 5-day range -- this reliably includes pre/post-market
+  // sessions in the indicators array. Then find the latest non-null close.
+  const yUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=5m&range=5d&includePrePost=true`;
   let lastErr;
   for (const proxy of PROXIES) {
     try {
-      const resp = await fetch(proxy(yUrl));
+      const resp = await fetch(proxy(yUrl) + '&_=' + Date.now()); // bust caches
       if (!resp.ok) { lastErr = new Error('HTTP ' + resp.status); continue; }
       const data = await resp.json();
-      const meta = data?.chart?.result?.[0]?.meta;
-      if (!meta) { lastErr = new Error('No data'); continue; }
+      const result = data?.chart?.result?.[0];
+      if (!result) { lastErr = new Error('No result'); continue; }
+
+      const meta = result.meta;
+      const closes = result.indicators?.quote?.[0]?.close || [];
+      const timestamps = result.timestamp || [];
+
+      // Candidates: latest non-null bar close + all meta fields, pick most recent
       const candidates = [
         [meta.regularMarketTime || 0, meta.regularMarketPrice],
         [meta.postMarketTime || 0, meta.postMarketPrice],
         [meta.preMarketTime || 0, meta.preMarketPrice],
       ].filter(([_, p]) => p && p > 0);
+
+      for (let i = closes.length - 1; i >= 0; i--) {
+        if (closes[i] !== null && closes[i] > 0) {
+          candidates.push([timestamps[i] || 0, closes[i]]);
+          break;
+        }
+      }
+
       candidates.sort((a, b) => b[0] - a[0]);
       return candidates[0]?.[1] || meta.regularMarketPrice;
     } catch (e) { lastErr = e; }
