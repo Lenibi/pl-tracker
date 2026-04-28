@@ -11,85 +11,97 @@
     background: #0d1117;
     color: #e6edf3;
     margin: 0;
-    padding: 16px;
+    padding: 20px;
     min-height: 100vh;
   }
-  .container { max-width: 720px; margin: 0 auto; }
+  .container { max-width: 540px; margin: 0 auto; }
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-    padding: 0 4px;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .header-title { font-size: 14px; color: #8b949e; letter-spacing: 0.5px; }
-  .header-meta { font-size: 13px; color: #8b949e; font-variant-numeric: tabular-nums; }
-  .header-meta .label { color: #6e7681; }
-  .header-meta .val { color: #e6edf3; font-weight: 600; }
-
-  .table-card {
+  .input-card {
     background: #161b22;
     border: 1px solid #30363d;
     border-radius: 10px;
-    overflow: hidden;
+    padding: 16px;
     margin-bottom: 14px;
   }
-  table {
-    width: 100%;
-    border-collapse: collapse;
+  .input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .input-row label {
+    color: #8b949e;
     font-size: 13px;
+    flex-shrink: 0;
+  }
+  .input-row input {
+    flex: 1;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    color: #e6edf3;
+    padding: 10px 12px;
+    font-size: 18px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+  .input-row input:focus { outline: none; border-color: #58a6ff; }
+  .live-badge {
+    background: #1c2128;
+    border: 1px solid #30363d;
+    color: #8b949e;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+  }
+  .live-badge:hover { color: #58a6ff; border-color: #58a6ff; }
+
+  .pnl-card {
+    background: linear-gradient(135deg, #161b22 0%, #1c2128 100%);
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 32px 20px;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+  .pnl-cad {
+    font-size: 56px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+    line-height: 1;
     font-variant-numeric: tabular-nums;
   }
-  th {
-    background: #1c2128;
-    color: #8b949e;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    padding: 10px 8px;
-    text-align: right;
-    border-bottom: 1px solid #30363d;
-  }
-  th:first-child { text-align: left; padding-left: 14px; }
-  th:last-child { padding-right: 14px; }
-  td {
-    padding: 8px;
-    text-align: right;
-    border-bottom: 1px solid #21262d;
-  }
-  td:first-child { text-align: left; padding-left: 14px; font-weight: 600; color: #c9d1d9; }
-  td:last-child { padding-right: 14px; color: #8b949e; }
-  tr:last-child td { border-bottom: none; }
-
-  .row-now { background: #1c2738; }
-  .row-now td:first-child { color: #58a6ff; }
-  .row-now td:first-child::after { content: " ← now"; color: #58a6ff; font-size: 10px; font-weight: 400; }
-  .row-be { background: rgba(187, 128, 9, 0.08); }
-  .row-be td:first-child::after { content: " ← BE"; color: #d29922; font-size: 10px; font-weight: 400; }
-  .row-target { background: rgba(63, 185, 80, 0.04); }
-
-  .positive { color: #3fb950; font-weight: 600; }
-  .negative { color: #f85149; font-weight: 600; }
+  .pnl-usd { font-size: 16px; color: #8b949e; font-variant-numeric: tabular-nums; }
+  .positive { color: #3fb950; }
+  .negative { color: #f85149; }
   .neutral { color: #8b949e; }
 
-  button {
-    background: #238636;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    width: 100%;
-    transition: background 0.15s;
+  .formula-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 14px;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
+    font-size: 13px;
+    line-height: 1.7;
   }
-  button:hover:not(:disabled) { background: #2ea043; }
-  button:disabled { background: #30363d; color: #8b949e; cursor: not-allowed; }
+  .formula-title {
+    color: #8b949e;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-family: -apple-system, sans-serif;
+  }
+  .formula-line { color: #c9d1d9; font-variant-numeric: tabular-nums; }
+  .formula-line .op { color: #ff7b72; }
+  .formula-line .num { color: #79c0ff; }
+  .formula-line .var { color: #d2a8ff; }
+  .formula-line .res { color: #3fb950; font-weight: 600; }
+  .formula-line .res.neg { color: #f85149; }
+  .formula-divider { border-top: 1px solid #21262d; margin: 8px 0; }
 
   details { margin-top: 14px; color: #6e7681; font-size: 12px; }
   details summary {
@@ -101,10 +113,16 @@
   .iv-control { padding: 8px 4px 0; }
   .iv-control input[type="range"] { width: 100%; margin-top: 6px; accent-color: #58a6ff; }
   .iv-value { color: #58a6ff; font-weight: 600; }
-  .iv-control select {
-    width: 100%; padding: 6px; background: #0d1117; color: #e6edf3;
-    border: 1px solid #30363d; border-radius: 6px; margin-top: 6px;
+
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    color: #6e7681;
+    font-size: 11px;
+    padding: 0 4px;
+    margin-top: 10px;
   }
+  .meta .val { color: #c9d1d9; font-weight: 600; }
 
   .error-box {
     color: #f85149;
@@ -115,67 +133,66 @@
     margin-top: 10px;
     font-size: 12px;
   }
-  .footnote {
-    color: #6e7681;
-    font-size: 11px;
-    margin-top: 10px;
-    text-align: center;
-    line-height: 1.6;
-  }
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="header">
-    <div class="header-title">EXIT P&amp;L SCENARIOS</div>
-    <div class="header-meta">
-      <span class="label">Now:</span>
-      <span class="val" id="hdr-stock">--</span>
-      <span class="label" style="margin-left:10px">FX:</span>
-      <span class="val" id="hdr-fx">--</span>
+
+  <div class="input-card">
+    <div class="input-row">
+      <label>If price closes at</label>
+      <input type="number" id="price-input" step="0.01" value="113.00">
+      <span class="live-badge" id="live-btn">use live</span>
     </div>
   </div>
 
-  <div class="table-card">
-    <table>
-      <thead>
-        <tr>
-          <th>Close</th>
-          <th>Opt</th>
-          <th>P&amp;L USD</th>
-          <th>P&amp;L CAD</th>
-          <th>Return</th>
-          <th>$/+1</th>
-        </tr>
-      </thead>
-      <tbody id="scenarios"></tbody>
-    </table>
+  <div class="pnl-card">
+    <div id="pnl-cad" class="pnl-cad neutral">--</div>
+    <div id="pnl-usd" class="pnl-usd">--</div>
   </div>
 
-  <button id="refresh-btn">Refresh</button>
+  <div class="formula-card">
+    <div class="formula-title">Black-Scholes</div>
+    <div class="formula-line"><span class="var">d1</span> = [ln(S/K) + (r + 0.5·σ²)·T] / (σ·√T)</div>
+    <div class="formula-line"><span class="var">d2</span> = d1 − σ·√T</div>
+    <div class="formula-line"><span class="var">C</span> = S·N(d1) − K·e^(−r·T)·N(d2)</div>
+
+    <div class="formula-divider"></div>
+
+    <div class="formula-title">Inputs</div>
+    <div class="formula-line">S = <span class="num" id="f-s">--</span> &nbsp; K = <span class="num">110</span></div>
+    <div class="formula-line">T = <span class="num">2/252 = 0.00794</span> &nbsp; r = <span class="num">0.05</span></div>
+    <div class="formula-line">σ = <span class="num" id="f-sigma">1.30</span></div>
+
+    <div class="formula-divider"></div>
+
+    <div class="formula-title">Computed</div>
+    <div class="formula-line">d1 = <span class="num" id="f-d1">--</span> &nbsp; d2 = <span class="num" id="f-d2">--</span></div>
+    <div class="formula-line">N(d1) = <span class="num" id="f-nd1">--</span> &nbsp; N(d2) = <span class="num" id="f-nd2">--</span></div>
+    <div class="formula-line"><span class="var">C</span> = <span class="res" id="f-c">--</span></div>
+
+    <div class="formula-divider"></div>
+
+    <div class="formula-title">P&amp;L</div>
+    <div class="formula-line">USD = (C − <span class="num">6.2567</span>) <span class="op">·</span> <span class="num">100</span> <span class="op">·</span> <span class="num">6</span></div>
+    <div class="formula-line">USD = (<span class="num" id="f-c2">--</span> − 6.2567) · 100 · 6 = <span id="f-usd" class="res">--</span></div>
+    <div class="formula-line">CAD = USD · <span class="num" id="f-fx">--</span> = <span id="f-cad" class="res">--</span></div>
+  </div>
 
   <details>
     <summary>Settings</summary>
     <div class="iv-control">
-      <label>IV: <span id="iv-value" class="iv-value">130%</span></label>
+      <label>IV (σ): <span id="iv-value" class="iv-value">130%</span></label>
       <input type="range" id="iv-slider" min="50" max="300" value="130" step="5">
-    </div>
-    <div class="iv-control" style="margin-top: 10px;">
-      <label>Exit time: <span class="iv-value" id="exit-mode-label">Wed 3:50 PM</span></label>
-      <select id="exit-mode">
-        <option value="wed">Wed 3:50 PM (sell day)</option>
-        <option value="now">Right now (live mark)</option>
-        <option value="exp">At expiry (Fri 4:00 PM)</option>
-      </select>
     </div>
   </details>
 
-  <div id="error-container"></div>
+  <div class="meta">
+    <span>Live: <span class="val" id="meta-stock">--</span></span>
+    <span>FX: <span class="val" id="meta-fx">--</span></span>
+  </div>
 
-  <p class="footnote">
-    BS estimate, constant IV. Real bid/ask differs.<br>
-    <span style="color:#58a6ff">current</span> &middot; <span style="color:#d29922">breakeven</span> &middot; <span style="color:#3fb950">analogue target</span>
-  </p>
+  <div id="error-container"></div>
 </div>
 
 <script>
@@ -183,16 +200,13 @@ const QTY = 6;
 const AVG_FILL = 6.2567;
 const TOTAL_COST_USD = QTY * AVG_FILL * 100;
 const STRIKE = 110;
-const EXPIRY_ISO = '2026-05-01T20:00:00Z';
+const T = 2 / 252;
 const R = 0.05;
 const TICKER = 'SOXL';
 const FX_TICKER = 'CAD=X';
-const ANALOGUE_LO = 127, ANALOGUE_HI = 128;
 
 let SIGMA = 1.30;
-let CURRENT_STOCK = null;
-let CURRENT_FX = 1.37;
-let EXIT_MODE = 'wed';
+let CURRENT_FX = 1.3687;
 
 function normCDF(x) {
   const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741;
@@ -205,19 +219,13 @@ function normCDF(x) {
 }
 
 function bsCall(S, K, T, r, sigma) {
-  if (T <= 0 || sigma <= 0) return Math.max(S - K, 0);
+  if (T <= 0 || sigma <= 0) return { C: Math.max(S - K, 0), d1: 0, d2: 0, Nd1: 0, Nd2: 0 };
   const d1 = (Math.log(S / K) + (r + 0.5 * sigma * sigma) * T) / (sigma * Math.sqrt(T));
   const d2 = d1 - sigma * Math.sqrt(T);
-  return S * normCDF(d1) - K * Math.exp(-r * T) * normCDF(d2);
-}
-
-function getExitT() {
-  if (EXIT_MODE === 'exp') return 0;
-  if (EXIT_MODE === 'now') {
-    const ms = new Date(EXPIRY_ISO) - new Date();
-    return ms <= 0 ? 0 : ms / (365 * 24 * 3600 * 1000);
-  }
-  return 2 / 252;
+  const Nd1 = normCDF(d1);
+  const Nd2 = normCDF(d2);
+  const C = S * Nd1 - K * Math.exp(-r * T) * Nd2;
+  return { C, d1, d2, Nd1, Nd2 };
 }
 
 const PROXIES = [
@@ -243,64 +251,45 @@ async function fetchYahoo(symbol) {
 
 function fmtUsd(n) {
   const sign = n >= 0 ? '+' : '-';
-  const abs = Math.abs(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
-  return `${sign}$${abs}`;
+  return `${sign}$${Math.abs(n).toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
 }
 function fmtCad(n) {
   const sign = n >= 0 ? '+' : '-';
-  const abs = Math.abs(n).toLocaleString('en-CA', { maximumFractionDigits: 0 });
-  return `${sign}$${abs}`;
+  return `${sign}$${Math.abs(n).toLocaleString('en-CA', { maximumFractionDigits: 0 })}`;
 }
 
-function renderTable() {
-  const tbody = document.getElementById('scenarios');
-  while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
+function compute() {
+  const S = parseFloat(document.getElementById('price-input').value);
+  if (isNaN(S) || S <= 0) return;
 
-  const T = getExitT();
-  const lo = 105, hi = 140;
-  const nowPrice = CURRENT_STOCK ? Math.round(CURRENT_STOCK) : null;
+  const r = bsCall(S, STRIKE, T, R, SIGMA);
+  const usd = (r.C - AVG_FILL) * 100 * QTY;
+  const cad = usd * CURRENT_FX;
 
-  let breakeven = null;
-  for (let p = lo; p <= hi; p++) {
-    const opt = bsCall(p, STRIKE, T, R, SIGMA);
-    const pnl = (opt - AVG_FILL) * 100 * QTY;
-    if (pnl >= 0) { breakeven = p; break; }
-  }
+  const cls = usd > 0 ? 'positive' : (usd < 0 ? 'negative' : 'neutral');
+  const cadEl = document.getElementById('pnl-cad');
+  const usdEl = document.getElementById('pnl-usd');
+  cadEl.className = `pnl-cad ${cls}`;
+  cadEl.textContent = fmtCad(cad);
+  usdEl.textContent = `${fmtUsd(usd)} USD`;
 
-  for (let p = lo; p <= hi; p++) {
-    const opt = Math.max(bsCall(p, STRIKE, T, R, SIGMA), 0.01);
-    const perPnl = (opt - AVG_FILL) * 100;
-    const totalUsd = perPnl * QTY;
-    const totalCad = totalUsd * CURRENT_FX;
-    const ret = totalUsd / TOTAL_COST_USD * 100;
+  document.getElementById('f-s').textContent = S.toFixed(2);
+  document.getElementById('f-sigma').textContent = SIGMA.toFixed(2);
+  document.getElementById('f-d1').textContent = r.d1.toFixed(4);
+  document.getElementById('f-d2').textContent = r.d2.toFixed(4);
+  document.getElementById('f-nd1').textContent = r.Nd1.toFixed(4);
+  document.getElementById('f-nd2').textContent = r.Nd2.toFixed(4);
+  document.getElementById('f-c').textContent = `$${r.C.toFixed(4)}`;
+  document.getElementById('f-c2').textContent = r.C.toFixed(4);
 
-    let prevOpt = (p > lo) ? bsCall(p - 1, STRIKE, T, R, SIGMA) : null;
-    let dollarPerOne = prevOpt !== null ? ((opt - Math.max(prevOpt, 0.01)) * 100 * QTY) : null;
+  const usdEl2 = document.getElementById('f-usd');
+  const cadEl2 = document.getElementById('f-cad');
+  usdEl2.textContent = fmtUsd(usd);
+  usdEl2.className = `res ${usd < 0 ? 'neg' : ''}`;
+  cadEl2.textContent = fmtCad(cad);
+  cadEl2.className = `res ${cad < 0 ? 'neg' : ''}`;
 
-    const tr = document.createElement('tr');
-    if (nowPrice !== null && p === nowPrice) tr.classList.add('row-now');
-    if (p === breakeven) tr.classList.add('row-be');
-    if (p >= ANALOGUE_LO && p <= ANALOGUE_HI) tr.classList.add('row-target');
-
-    const cls = totalUsd > 0 ? 'positive' : (totalUsd < 0 ? 'negative' : 'neutral');
-
-    const cells = [
-      { text: `$${p}`, cls: null },
-      { text: `$${opt.toFixed(2)}`, cls: null },
-      { text: fmtUsd(totalUsd), cls },
-      { text: fmtCad(totalCad), cls },
-      { text: `${ret >= 0 ? '+' : ''}${ret.toFixed(0)}%`, cls },
-      { text: dollarPerOne === null ? '—' : `+$${Math.round(dollarPerOne)}`, cls: null },
-    ];
-
-    cells.forEach(c => {
-      const td = document.createElement('td');
-      td.textContent = c.text;
-      if (c.cls) td.className = c.cls;
-      tr.appendChild(td);
-    });
-    tbody.appendChild(tr);
-  }
+  document.getElementById('f-fx').textContent = CURRENT_FX.toFixed(4);
 }
 
 function showError(msg) {
@@ -308,7 +297,7 @@ function showError(msg) {
   while (container.firstChild) container.removeChild(container.firstChild);
   const box = document.createElement('div');
   box.className = 'error-box';
-  box.textContent = `Failed to fetch: ${msg}. Try again in 10 sec.`;
+  box.textContent = `Failed to fetch: ${msg}. Try again.`;
   container.appendChild(box);
 }
 
@@ -317,46 +306,34 @@ function clearError() {
   while (container.firstChild) container.removeChild(container.firstChild);
 }
 
-async function refresh() {
-  const btn = document.getElementById('refresh-btn');
+async function fetchLive() {
   clearError();
-  btn.disabled = true;
-  btn.textContent = 'Loading...';
-
   try {
     const [price, fx] = await Promise.all([
       fetchYahoo(TICKER),
       fetchYahoo(FX_TICKER),
     ]);
-    CURRENT_STOCK = price;
     CURRENT_FX = fx;
-
-    document.getElementById('hdr-stock').textContent = `$${price.toFixed(2)}`;
-    document.getElementById('hdr-fx').textContent = fx.toFixed(4);
-    renderTable();
+    document.getElementById('meta-stock').textContent = `$${price.toFixed(2)}`;
+    document.getElementById('meta-fx').textContent = fx.toFixed(4);
+    document.getElementById('price-input').value = price.toFixed(2);
+    compute();
   } catch (e) {
     showError(e.message || String(e));
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Refresh';
   }
 }
+
+document.getElementById('price-input').addEventListener('input', compute);
 
 document.getElementById('iv-slider').addEventListener('input', (e) => {
   SIGMA = e.target.value / 100;
   document.getElementById('iv-value').textContent = `${e.target.value}%`;
-  if (CURRENT_STOCK !== null) renderTable();
+  compute();
 });
 
-document.getElementById('exit-mode').addEventListener('change', (e) => {
-  EXIT_MODE = e.target.value;
-  const labels = { wed: 'Wed 3:50 PM', now: 'Right now', exp: 'At expiry' };
-  document.getElementById('exit-mode-label').textContent = labels[EXIT_MODE];
-  if (CURRENT_STOCK !== null) renderTable();
-});
+document.getElementById('live-btn').addEventListener('click', fetchLive);
 
-document.getElementById('refresh-btn').addEventListener('click', refresh);
-refresh();
+fetchLive();
 </script>
 </body>
 </html>
