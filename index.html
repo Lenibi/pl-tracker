@@ -15,11 +15,19 @@
   }
   body {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+  }
+  #title {
+    color: #d2b48c;
+    font-size: clamp(20px, 5vw, 42px);
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: clamp(8px, 2vw, 18px);
   }
   #pnl {
     font-size: clamp(48px, 18vw, 180px);
@@ -35,6 +43,7 @@
 </style>
 </head>
 <body>
+<div id="title">IC Syrup Funds</div>
 <div id="pnl" class="neutral">--</div>
 
 <script>
