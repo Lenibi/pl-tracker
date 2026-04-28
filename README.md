@@ -1,28 +1,25 @@
-# SOXL P&L Tracker
+# P&L Tracker
 
-Quick web app showing live mark-to-market P&L for a SOXL option position, in CAD.
+Minimalist web app showing live mark-to-market P&L in CAD.
 
-**Live demo:** https://lenibi.github.io/soxl-pnl-tracker/
+**Live demo:** https://lenibi.github.io/pl-tracker/
 
 ## What it does
 
-- Fetches live SOXL price and USD/CAD rate via Yahoo Finance (through a public CORS proxy)
-- Computes option mark using Black-Scholes with adjustable IV
-- Shows P&L in both USD and CAD
-- Auto-refreshes on load; manual refresh button
-
-## Position (hardcoded for fun)
-
-- 6 contracts SOXL May01 $110C
-- Avg fill: $6.26 USD
-- Total cost: $3,754 USD
-
-To change the position, edit the constants at the top of the `<script>` block in `index.html`.
+- Fetches a live price + USD/CAD rate via Yahoo Finance (through a public CORS proxy)
+- Computes a Black-Scholes mark with adjustable IV
+- Displays one big number, color-coded green/red
 
 ## Hosting on GitHub Pages
 
-1. Push to `main` branch
+1. Push to `main`
 2. Settings → Pages → Source: `Deploy from a branch`, Branch: `main`, Folder: `/ (root)`
-3. Wait ~30 seconds, site goes live at `https://<username>.github.io/<repo-name>/`
+3. Wait ~30 sec
+4. Live at `https://<username>.github.io/<repo-name>/`
 
-No build step. Pure static HTML + vanilla JS.
+Pure static HTML + vanilla JS. No build step.
+
+## Customizing
+
+Edit the constants at the top of the `<script>` block in `index.html`:
+`QTY`, `AVG_FILL`, `STRIKE`, `EXPIRY_ISO`, `TICKER`.

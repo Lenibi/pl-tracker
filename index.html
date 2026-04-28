@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOXL Position P&L (CAD)</title>
+<title>P&L</title>
 <style>
   * { box-sizing: border-box; }
   body {
@@ -13,66 +13,56 @@
     margin: 0;
     padding: 20px;
     min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .container { max-width: 540px; margin: 0 auto; }
-  h1 { color: #58a6ff; margin: 0 0 4px 0; font-size: 28px; }
-  .subtitle { color: #8b949e; margin-bottom: 24px; font-size: 14px; }
-
-  .card {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 16px;
-  }
-
-  .position-line { font-weight: 600; margin-bottom: 4px; }
-  .position-meta { color: #8b949e; font-size: 13px; }
+  .container { max-width: 480px; width: 100%; }
 
   .pnl-card {
     background: linear-gradient(135deg, #161b22 0%, #1c2128 100%);
+    border: 1px solid #30363d;
+    border-radius: 14px;
+    padding: 44px 24px;
+    margin-bottom: 14px;
     text-align: center;
-    padding: 32px 20px;
   }
-  .pnl-label { color: #8b949e; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; }
   .pnl-cad {
-    font-size: 56px;
+    font-size: 64px;
     font-weight: 700;
-    margin: 12px 0 4px 0;
+    margin: 0 0 8px 0;
     line-height: 1;
     font-variant-numeric: tabular-nums;
   }
-  .pnl-usd { font-size: 16px; color: #8b949e; margin-bottom: 8px; }
-  .return-pct { font-size: 22px; font-weight: 600; }
+  .pnl-usd {
+    font-size: 16px;
+    color: #8b949e;
+    margin-bottom: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .return-pct {
+    font-size: 22px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
   .positive { color: #3fb950; }
   .negative { color: #f85149; }
   .neutral { color: #8b949e; }
 
-  .meta-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 20px;
+  .updated {
+    color: #6e7681;
+    font-size: 11px;
+    margin-top: 18px;
+    letter-spacing: 0.3px;
   }
-  .meta-item {
-    background: #0d1117;
-    border: 1px solid #30363d;
-    padding: 10px 12px;
-    border-radius: 6px;
-    text-align: left;
-  }
-  .meta-label { color: #8b949e; font-size: 11px; letter-spacing: 0.5px; text-transform: uppercase; }
-  .meta-value { font-size: 16px; font-weight: 600; margin-top: 4px; font-variant-numeric: tabular-nums; }
-
-  .updated { color: #6e7681; font-size: 11px; margin-top: 14px; }
 
   button {
     background: #238636;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 16px;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     width: 100%;
@@ -81,77 +71,52 @@
   button:hover:not(:disabled) { background: #2ea043; }
   button:disabled { background: #30363d; color: #8b949e; cursor: not-allowed; }
 
-  .iv-control { margin-top: 16px; padding-top: 16px; border-top: 1px solid #30363d; }
-  .iv-control label { color: #8b949e; font-size: 12px; }
+  details {
+    margin-top: 14px;
+    color: #6e7681;
+    font-size: 12px;
+  }
+  details summary {
+    cursor: pointer;
+    padding: 8px 0;
+    user-select: none;
+  }
+  details summary:hover { color: #8b949e; }
+  .iv-control { padding: 8px 4px 0; }
   .iv-control input[type="range"] { width: 100%; margin-top: 6px; accent-color: #58a6ff; }
   .iv-value { color: #58a6ff; font-weight: 600; }
-  .iv-hint { color: #6e7681; font-size: 11px; margin-top: 6px; }
 
   .error-box {
     color: #f85149;
     background: rgba(248, 81, 73, 0.1);
     border: 1px solid #f85149;
-    padding: 12px;
-    border-radius: 6px;
-    margin-top: 12px;
-    font-size: 13px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 12px;
   }
-  .footnote { color: #6e7681; font-size: 11px; margin-top: 16px; text-align: center; }
 </style>
 </head>
 <body>
 <div class="container">
-  <h1>SOXL P&amp;L</h1>
-  <p class="subtitle">Live mark-to-market in CAD</p>
-
-  <div class="card">
-    <div class="position-line">6 contracts SOXL May01 $110C</div>
-    <div class="position-meta">Avg fill: $6.26 USD &middot; Cost: $3,754 USD &middot; Strike: $110</div>
-  </div>
-
-  <div class="card pnl-card">
-    <div class="pnl-label">Current P&amp;L (CAD)</div>
+  <div class="pnl-card">
     <div id="pnl-cad" class="pnl-cad neutral">--</div>
-    <div id="pnl-usd" class="pnl-usd">USD: --</div>
+    <div id="pnl-usd" class="pnl-usd">--</div>
     <div id="return-pct" class="return-pct neutral">--</div>
-
-    <div class="meta-grid">
-      <div class="meta-item">
-        <div class="meta-label">SOXL</div>
-        <div id="soxl-price" class="meta-value">--</div>
-      </div>
-      <div class="meta-item">
-        <div class="meta-label">USD/CAD</div>
-        <div id="usdcad" class="meta-value">--</div>
-      </div>
-      <div class="meta-item">
-        <div class="meta-label">Option Mid (BS)</div>
-        <div id="opt-mid" class="meta-value">--</div>
-      </div>
-      <div class="meta-item">
-        <div class="meta-label">Hours to Expiry</div>
-        <div id="t-expiry" class="meta-value">--</div>
-      </div>
-    </div>
-    <div id="updated" class="updated">Click Refresh to fetch</div>
+    <div id="updated" class="updated">Tap to load</div>
   </div>
 
-  <button id="refresh-btn">Refresh P&amp;L</button>
+  <button id="refresh-btn">Refresh</button>
 
-  <div class="card iv-control">
-    <label>Assumed IV: <span id="iv-value" class="iv-value">130%</span></label>
-    <input type="range" id="iv-slider" min="50" max="300" value="130" step="5">
-    <div class="iv-hint">
-      Lower = pessimistic on time-value, higher = optimistic. 130% matches yesterday's calibration.
+  <details>
+    <summary>Settings</summary>
+    <div class="iv-control">
+      <label>IV: <span id="iv-value" class="iv-value">130%</span></label>
+      <input type="range" id="iv-slider" min="50" max="300" value="130" step="5">
     </div>
-  </div>
+  </details>
 
   <div id="error-container"></div>
-
-  <p class="footnote">
-    Mark uses Black-Scholes with fixed IV. Real bid/ask may differ.
-    Quotes via Yahoo Finance (15-min delay possible).
-  </p>
 </div>
 
 <script>
@@ -161,6 +126,8 @@ const TOTAL_COST_USD = QTY * AVG_FILL * 100;
 const STRIKE = 110;
 const EXPIRY_ISO = '2026-05-01T20:00:00Z';
 const R = 0.05;
+const TICKER = 'SOXL';
+const FX_TICKER = 'CAD=X';
 
 let SIGMA = 1.30;
 
@@ -186,11 +153,6 @@ function timeToExpiryYears() {
   return ms <= 0 ? 0 : ms / (365 * 24 * 3600 * 1000);
 }
 
-function hoursToExpiry() {
-  const ms = new Date(EXPIRY_ISO) - new Date();
-  return ms <= 0 ? 0 : ms / (3600 * 1000);
-}
-
 const PROXIES = [
   url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
   url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
@@ -205,7 +167,7 @@ async function fetchYahoo(symbol) {
       if (!resp.ok) { lastErr = new Error(`HTTP ${resp.status}`); continue; }
       const data = await resp.json();
       const meta = data?.chart?.result?.[0]?.meta;
-      if (!meta) { lastErr = new Error(`No data for ${symbol}`); continue; }
+      if (!meta) { lastErr = new Error('No data'); continue; }
       return meta.regularMarketPrice;
     } catch (e) { lastErr = e; }
   }
@@ -225,12 +187,7 @@ function showError(msg) {
   while (container.firstChild) container.removeChild(container.firstChild);
   const box = document.createElement('div');
   box.className = 'error-box';
-  const strong = document.createElement('strong');
-  strong.textContent = 'Failed to fetch: ';
-  box.appendChild(strong);
-  box.appendChild(document.createTextNode(msg));
-  box.appendChild(document.createElement('br'));
-  box.appendChild(document.createTextNode('CORS proxies can be flaky -- try again in 10 sec.'));
+  box.textContent = `Failed to fetch: ${msg}. Try again in 10 sec.`;
   container.appendChild(box);
 }
 
@@ -243,19 +200,19 @@ async function refresh() {
   const btn = document.getElementById('refresh-btn');
   clearError();
   btn.disabled = true;
-  btn.textContent = 'Fetching...';
+  btn.textContent = 'Loading...';
 
   try {
-    const [soxl, usdcad] = await Promise.all([
-      fetchYahoo('SOXL'),
-      fetchYahoo('CAD=X'),
+    const [price, fx] = await Promise.all([
+      fetchYahoo(TICKER),
+      fetchYahoo(FX_TICKER),
     ]);
 
     const T = timeToExpiryYears();
-    const optMid = bsCall(soxl, STRIKE, T, R, SIGMA);
+    const optMid = bsCall(price, STRIKE, T, R, SIGMA);
     const perPnl = (optMid - AVG_FILL) * 100;
     const totalUsd = perPnl * QTY;
-    const totalCad = totalUsd * usdcad;
+    const totalCad = totalUsd * fx;
     const ret = totalUsd / TOTAL_COST_USD * 100;
 
     const cadEl = document.getElementById('pnl-cad');
@@ -265,21 +222,16 @@ async function refresh() {
     cadEl.className = `pnl-cad ${cls}`;
     retEl.className = `return-pct ${cls}`;
     cadEl.textContent = fmtMoney(totalCad, 'CAD');
-    usdEl.textContent = `USD: ${fmtMoney(totalUsd, 'USD')}`;
+    usdEl.textContent = `${fmtMoney(totalUsd, 'USD')} USD`;
     retEl.textContent = `${ret >= 0 ? '+' : ''}${ret.toFixed(1)}%`;
 
-    document.getElementById('soxl-price').textContent = `$${soxl.toFixed(2)}`;
-    document.getElementById('usdcad').textContent = usdcad.toFixed(4);
-    document.getElementById('opt-mid').textContent = `$${optMid.toFixed(2)}`;
-    const hrs = hoursToExpiry();
-    document.getElementById('t-expiry').textContent = hrs <= 0 ? 'Expired' : `${hrs.toFixed(1)}h`;
     document.getElementById('updated').textContent =
-      `Updated: ${new Date().toLocaleTimeString()}`;
+      `Updated ${new Date().toLocaleTimeString()}`;
   } catch (e) {
     showError(e.message || String(e));
   } finally {
     btn.disabled = false;
-    btn.textContent = 'Refresh P&L';
+    btn.textContent = 'Refresh';
   }
 }
 
@@ -288,12 +240,10 @@ const ivValue = document.getElementById('iv-value');
 slider.addEventListener('input', () => {
   SIGMA = slider.value / 100;
   ivValue.textContent = `${slider.value}%`;
-  const soxlText = document.getElementById('soxl-price').textContent;
-  if (soxlText !== '--') refresh();
+  if (document.getElementById('pnl-cad').textContent !== '--') refresh();
 });
 
 document.getElementById('refresh-btn').addEventListener('click', refresh);
-
 refresh();
 </script>
 </body>
