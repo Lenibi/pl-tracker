@@ -234,7 +234,8 @@ const PROXIES = [
 ];
 
 async function fetchYahoo(symbol) {
-  const yUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1m&range=1d`;
+  // includePrePost=true gives us pre-market and post-market prices when applicable
+  const yUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1m&range=1d&includePrePost=true`;
   let lastErr;
   for (const proxy of PROXIES) {
     try {
@@ -243,7 +244,14 @@ async function fetchYahoo(symbol) {
       const data = await resp.json();
       const meta = data?.chart?.result?.[0]?.meta;
       if (!meta) { lastErr = new Error('No data'); continue; }
-      return meta.regularMarketPrice;
+      // Pick the most recent price across regular / pre / post sessions
+      const candidates = [
+        [meta.regularMarketTime || 0, meta.regularMarketPrice],
+        [meta.postMarketTime || 0, meta.postMarketPrice],
+        [meta.preMarketTime || 0, meta.preMarketPrice],
+      ].filter(([_, p]) => p && p > 0);
+      candidates.sort((a, b) => b[0] - a[0]);
+      return candidates[0]?.[1] || meta.regularMarketPrice;
     } catch (e) { lastErr = e; }
   }
   throw lastErr || new Error('All proxies failed');
